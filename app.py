@@ -170,7 +170,7 @@ def overall():
     # Display the pie chart using Streamlit
     st.pyplot(fig)
 
-st.subheader('Funding Heatmap')
+    st.subheader('Funding Heatmap')
     heatmap_data = df.pivot_table(values='amount', index='year', columns='month', aggfunc='sum')
     fig10, ax10 = plt.subplots()
     cax = ax10.matshow(heatmap_data, cmap='viridis')
