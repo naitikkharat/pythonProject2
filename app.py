@@ -11,7 +11,7 @@ df['month']=df['date'].dt.month
 df['year']=df['date'].dt.year
 
 def load_investor_details(investor):
-    st.title(investors)
+    st.title(investor)
     st.subheader('Most Recent Investments')
     last5_df = df[df['investors'].str.contains(investor, na=False)].head(5)[
         ['date', 'startup', 'vertical', 'city', 'round', 'amount']]
