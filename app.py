@@ -170,17 +170,16 @@ def overall():
     # Display the pie chart using Streamlit
     st.pyplot(fig)
 
-    st.header('Funding Heatmap')
-
-    # Pivot the DataFrame to create a matrix suitable for a heatmap
-    heatmap_data = df.pivot_table(index='startup', columns='year', values='amount', aggfunc='sum', fill_value=0)
-
-    # Create a heatmap using Seaborn
-    plt.figure(figsize=(12, 8))
-    sns.heatmap(heatmap_data, cmap='YlGnBu', annot=True, fmt=".0f", linewidths=.5)
-    plt.title('Funding Heatmap by Startup and Year')
-    st.pyplot(plt)
-
+st.subheader('Funding Heatmap')
+    heatmap_data = df.pivot_table(values='amount', index='year', columns='month', aggfunc='sum')
+    fig10, ax10 = plt.subplots()
+    cax = ax10.matshow(heatmap_data, cmap='viridis')
+    fig10.colorbar(cax)
+    ax10.set_xticks(range(len(heatmap_data.columns)))
+    ax10.set_xticklabels(heatmap_data.columns, rotation=45)
+    ax10.set_yticks(range(len(heatmap_data.index)))
+    ax10.set_yticklabels(heatmap_data.index)
+    st.pyplot(fig10)
 
 
 def startup_details(startup_name):
