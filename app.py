@@ -11,7 +11,7 @@ df['month']=df['date'].dt.month
 df['year']=df['date'].dt.year
 
 def load_investor_details(investor):
-    st.title(investor)
+    st.title(investors)
     st.subheader('Most Recent Investments')
     last5_df = df[df['investors'].str.contains(investor, na=False)].head(5)[
         ['date', 'startup', 'vertical', 'city', 'round', 'amount']]
@@ -70,8 +70,8 @@ def load_investor_details(investor):
 
 
 def overall():
-    st.title('Overall Analysis')
-
+    st.title('THE OVERALL ANALYSIS')
+    
     total = round(df['amount'].sum())
     #max amount
     max_funding = df.groupby('startup')['amount'].max().sort_values(ascending=False).head(1).values[0]
@@ -89,7 +89,7 @@ def overall():
         st.metric('Founded Startups',num_startups)
 
 
-    st.header('MoM Chart')
+    st.header('MONTH on MONTH CHART')
     selected_option = st.selectbox('select type',[' Total','Count'])
     if selected_option == 'Total':
         temp_df = df.groupby(['year', 'month'])['amount'].sum().reset_index()
@@ -102,8 +102,8 @@ def overall():
 
     st.pyplot(fig3)
 
-    st.header('Sector Analysis')
-    st.subheader("Top 3 Industries")
+    st.header('THE SECTOR ANALYSIS')
+    st.subheader("TOP INDUSTURIES")
     top_verticals = df['vertical'].value_counts().head(3)
     fig, ax = plt.subplots()
     top_verticals.plot(kind='pie', ax=ax)
@@ -111,7 +111,7 @@ def overall():
 
 
 
-    st.header('City Wise funding')
+    st.header('FUNDING CITY WISE')
     # Group by city and sum the investment amounts, filling missing values with 0
     total_investment_by_city = df.groupby('city')['amount'].sum().fillna(0)
     # Sorting the result by total investment amount
@@ -121,7 +121,7 @@ def overall():
 
 
     # Streamlit code
-    st.subheader('Total Investment by City')
+    st.subheader('CITY WISE TOTAL FUNDING')
     # Plotting a pie chart
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.pie(total_investment_by_city['amount'], labels=total_investment_by_city['city'], autopct='%1.1f%%')
